@@ -17,7 +17,7 @@ use MarkovBot::Commands;
 sub said {
   my $self = shift;
   my $msg = shift;
-  my $command_char = config "command_character";
+  my $command_char = quotemeta config "command_character";
 
   # Ignore PMs and ignored users
   return if $msg->{channel} eq 'msg';
@@ -55,5 +55,7 @@ MarkovBot->new(
   alt_nicks => [config("irc_nickname2")],
   username => config("irc_nickname"),
   name => config("irc_nickname"),
+
+  ssl => config("irc_ssl") eq "true" ? 1 : 0,
 
 )->run();

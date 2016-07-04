@@ -11,8 +11,9 @@ redis_prefix: markov
 #
 # IRC Settings
 #
+irc_ssl: true
 irc_server: irc.foo.bar
-irc_port: 6667
+irc_port: 6697
 irc_channel: "#baz"
 irc_nickname: shithead-ng
 irc_nickname2: shithead
