@@ -9,6 +9,9 @@ our @EXPORT = qw(getCommandSubs);
 use FindBin qw($Bin);
 use lib $Bin;
 use MarkovBot::Ignore;
+use MarkovBot::Config;
+use MarkovBot::Redis;
+use Scalar::Util qw(looks_like_number);
 
 sub commandPing() {
   return "Pong!";
@@ -36,11 +39,25 @@ sub commandUnignore() {
   return "No longer ignoring ".$command->[1].".";
 }
 
+sub commandShitposting() {
+  my $command = shift;
+
+  if (scalar( @{$command} ) != 2 || !looks_like_number $command->[1]
+      || $command->[1] > 100 || $command->[1] < 0) {
+    return "Usage: .shitposting <level>";
+  }
+
+  my $redis = redis();
+  my $p = config("redis_prefix");
+  $redis->set("$p:chattiness", $command->[1]);
+}
+
 sub getCommandSubs() {
   return {
     "ping" => \&commandPing,
     "ignore" => \&commandIgnore,
     "unignore" => \&commandUnignore,
+    "shitposting" => \&commandShitposting,
   };
 }
 
