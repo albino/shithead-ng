@@ -15,6 +15,7 @@ use MarkovBot::Ignore;
 use MarkovBot::Commands;
 use MarkovBot::MarkovChain;
 use MarkovBot::Redis;
+use Encode qw(encode decode);
 
 sub said {
   my $self = shift;
@@ -30,7 +31,7 @@ sub said {
   # Intercept commands
   if ($msg->{body} =~ m/^$command_char.+/) {
     
-    my $command = $msg->{body};
+    my $command = encode("UTF-8", $msg->{body});
     my @command = split(" ", $command);
     my $bare = $command[0];
     $bare =~ s/^$command_char//;
@@ -39,7 +40,7 @@ sub said {
 
     if (defined $subs{$bare}) {
       my $ret = $subs{$bare}->(\@command);
-      $self->say( channel => config("irc_channel"), body => $ret ) unless $ret eq "___null___";
+      $self->say( channel => config("irc_channel"), body => decode("UTF-8", $ret) ) unless $ret eq "___null___";
     }
 
     return;
