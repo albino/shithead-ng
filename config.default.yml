@@ -1,4 +1,9 @@
 #
+# General settings
+#
+command_character: "."
+
+#
 # Redis Settings
 #
 redis_prefix: markov

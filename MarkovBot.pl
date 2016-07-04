@@ -17,18 +17,19 @@ use MarkovBot::Commands;
 sub said {
   my $self = shift;
   my $msg = shift;
+  my $command_char = config "command_character";
 
   # Ignore PMs and ignored users
   return if $msg->{channel} eq 'msg';
   return if isIgnored($msg->{who});
 
   # Intercept commands
-  if ($msg->{body} =~ m/^\.\w+/) {
+  if ($msg->{body} =~ m/^$command_char.+/) {
     
     my $command = $msg->{body};
     my @command = split(" ", $command);
     my $bare = $command[0];
-    $bare =~ s/^\.//;
+    $bare =~ s/^$command_char//;
 
     my %subs = %{getCommandSubs()};
 
