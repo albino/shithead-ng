@@ -2,6 +2,7 @@
 # General settings
 #
 command_character: "."
+insult: "you're a faggot"
 
 #
 # Redis Settings

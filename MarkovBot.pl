@@ -13,11 +13,15 @@ use MarkovBot::Config;
 use MarkovBot::Learning;
 use MarkovBot::Ignore;
 use MarkovBot::Commands;
+use MarkovBot::MarkovChain;
+use MarkovBot::Redis;
 
 sub said {
   my $self = shift;
   my $msg = shift;
   my $command_char = quotemeta config "command_character";
+  my $redis = redis();
+  my $redis_prefix = config("redis_prefix");
 
   # Ignore PMs and ignored users
   return if $msg->{channel} eq 'msg';
@@ -38,11 +42,35 @@ sub said {
       $self->say( channel => config("irc_channel"), body => $ret ) unless $ret eq "___null___";
     }
 
+    return;
+
+  }
+
+  my $chattiness = $redis->get("$redis_prefix:chattiness");
+  if (rand 100 < $chattiness) {
+    # generate a shitpost
+    my @line = split " ", $msg->{body};
+    return unless scalar(@line) > 1;
+    my $start = int rand $#line;
+    my $resp = markov( [$line[$start], $line[$start+1]] );
+    $resp = config("insult") unless $resp;
+
+    $self->say(
+      channel => config("irc_channel"),
+      body => $resp,
+    );
   }
 
   # Learn
   learn $msg->{body};
 
+}
+
+# Set base chattiness value on first run
+my $redis = redis();
+my $p = config("redis_prefix");
+if (!$redis->get("$p:chattiness")) {
+  $redis->set("$p:chattiness", 10);
 }
 
 MarkovBot->new(
