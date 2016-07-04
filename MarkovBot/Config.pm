@@ -1,5 +1,8 @@
 package MarkovBot::Config;
 use base qw(Exporter);
+use 5.010;
+use strict;
+use warnings;
 
 our @EXPORT = qw(config);
 

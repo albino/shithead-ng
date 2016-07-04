@@ -1,5 +1,8 @@
 package MarkovBot::Commands;
 use base qw(Exporter);
+use 5.010;
+use strict;
+use warnings;
 
 our @EXPORT = qw(getCommandSubs);
 
