@@ -4,3 +4,4 @@ requires "Bot::BasicBot" => "0";
 requires "Redis" => "0";
 requires "YAML::Tiny" => "0";
 requires "POE::Component::SSLify" => "0";
+requires "Scalar::Util" => "0";
