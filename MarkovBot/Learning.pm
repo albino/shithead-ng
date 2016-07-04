@@ -11,6 +11,7 @@ use lib $Bin;
 
 use MarkovBot::Config;
 use MarkovBot::Redis;
+use Encode qw(encode);
 
 sub learn( $ ) {
   # input - line to be learned
@@ -19,7 +20,7 @@ sub learn( $ ) {
   my $redis = redis();
   my $redis_prefix = config("redis_prefix");
 
-  $_ = shift;
+  $_ = encode("UTF-8", shift);
 
   # learn - add a line of text to the brain
   $_ = $_." ___end___";

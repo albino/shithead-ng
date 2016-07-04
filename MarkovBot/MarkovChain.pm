@@ -11,14 +11,17 @@ use lib $Bin;
 
 use MarkovBot::Config;
 use MarkovBot::Redis;
+use Encode qw(decode encode);
 
 sub markov( $ ) {
   # markov - given two starting words, returns a markov chain result
 
   my $redis = redis;
   my $p = config "redis_prefix";
+
   my $s = shift;
   my @s = @{$s};
+  @s = map {encode("UTF-8", $_)} @s;
 
   if (!$redis->llen("$p:chains:$s[0],$s[1]")) {
     # Phrase is not known
@@ -34,6 +37,7 @@ sub markov( $ ) {
   }
 
   pop @s;
+  @s = map {decode("UTF-8", $_)} @s;
   return join " ", @s;
 }
 
