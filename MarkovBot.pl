@@ -2,7 +2,6 @@
 use 5.010;
 use strict;
 use warnings;
-use Redis;
 use FindBin qw($Bin);
 
 use lib $Bin;
