@@ -9,7 +9,19 @@ The original shithead uses far too much ram and is badly implemented.
 Let's reimplement it and get redis to do all the heavy lifting.
 
 ## Getting Started
-A brainfile is simply an irc log with all joins, parts, timestamps and nicknames stripped. In other words, it contains only what was said.
+First, set up dependencies. You need a redis server running locally (currently, AUTH and remote servers are not supported, this will be supported in the future) and the necessary perl modules:
+
+```bash
+# install cpanminus with your package manager of choice (preferred), or install it through cpan:
+cpan App::cpanminus
+# clone the git repo if you haven't already, then install the perl modules
+git clone https://neetco.de/albino/shithead-ng
+cpanm --installdeps shithead-ng
+# or, to avoid setting up local::lib:
+cpanm --sudo --installdeps shithead-ng
+```
+
+Next, you need a brainfile. A brainfile is simply an irc log with all joins, parts, timestamps and nicknames stripped. In other words, it contains only what was said.
 
 ```bash
 # if you have an old brainfile, import it into redis
