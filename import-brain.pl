@@ -16,18 +16,19 @@ close BRAIN;
 # open it again from the top
 open BRAIN, $brain_file or die $!;
 
-if ($line =~ m/^#\ shithead-ng\ file\ \(version\ .+\)$/) {
+if ($line =~ m/^shithead-ng\ file\ \(version\ .+\)$/) {
   # shithead-ng specific file
   while (<BRAIN>) {
     next unless $_ =~ m/^\x1c/;
     $_ =~ s/^\x1c//;
-    my @words = split "\x1f", @words;
+    chomp;
+    my @words = split "\x1f", $_;
     @words = map { $_ eq "\x1d" ? "___end___" : $_ } @words;
 
     # Write to redis
     my $p = config("redis_prefix");
     my $redis = redis();
-    $redis->lpush("$p:chains:".shift @words.",".shift @words, @words);
+    $redis->lpush("$p:chains:".shift(@words).",".shift(@words), @words);
   }
 } else {
   # generic irc log file

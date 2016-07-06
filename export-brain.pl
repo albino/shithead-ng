@@ -18,9 +18,12 @@ my $redis = redis();
 my $p = config("redis_prefix");
 my @keys = $redis->keys("$p:chains:*");
 
-print "# shithead-ng file (version 0)\n# this file cannot be used by other markov chain programs, without modification.\n# do not remove the first line, as it is used by the import script to determine whether the file is a standard irc log or a shithead-ng specific file.\n\x1c";
+say "shithead-ng file (version 0)\nthis file cannot be used by other markov chain programs, without modification.\ndo not remove the first line, as it is used by the import script to determine whether the file is a standard irc log or a shithead-ng specific file.";
 
 for (@keys) {
+  # mark the beginning of the record
+  print "\n\x1c";
+
   my $prefix = quotemeta $p;
   my $k = $_;
   $k =~ s/$prefix:chains://;
@@ -28,5 +31,5 @@ for (@keys) {
   my @words = split ",", $k;
   push @words, @{ $redis->lrange($_, 0, -1) };
   @words = map { $_ eq '___end___' ? "\x1d" : $_ } @words;
-  print join("\x1f", @words), "\n\x1c";
+  print join "\x1f", @words;
 }
