@@ -8,6 +8,9 @@ insult: "you're a faggot"
 # Redis Settings
 #
 redis_prefix: markov
+redis_server: 127.0.0.1:6379
+redis_usepass: false
+redis_password: hunter2
 
 #
 # IRC Settings

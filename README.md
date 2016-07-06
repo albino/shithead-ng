@@ -9,7 +9,7 @@ The original shithead uses far too much ram and is badly implemented.
 Let's reimplement it and get redis to do all the heavy lifting.
 
 ## Getting Started
-First, set up dependencies. You need a redis server running locally (currently, AUTH and remote servers are not supported, this will be supported in the future) and the necessary perl modules:
+First, set up dependencies. You need a redis server and the necessary perl modules:
 
 ```bash
 # install cpanminus with your package manager of choice (preferred), or install it through cpan:
