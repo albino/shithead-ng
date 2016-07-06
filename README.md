@@ -62,3 +62,11 @@ Now, just run `perl MarkovBot.pl`.
 < user> .ping
 < shithead-ng> Pong!
 ```
+
+## Exporting the brainfile
+
+```bash
+perl export-brain.pl > brain
+```
+
+This produces a shithead-ng brainfile which cannot (currently) be read by other programs. This is because the redis database does not contain enough information to reconstruct the brainfile it was created from. This file can, however, be read by shithead-ng's import-brain.pl.
