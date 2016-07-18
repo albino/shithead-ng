@@ -47,7 +47,7 @@ sub said {
 
   }
   if ($msg->{body} eq 'wew') {
-    $self->say(channel => $irc_chan, body => "lad");
+    $self->say(channel => config("irc_channel"), body => "lad");
   }
   my $chattiness = $redis->get("$redis_prefix:chattiness");
   if (rand 100 < $chattiness) {
