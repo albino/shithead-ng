@@ -21,3 +21,10 @@ irc_port: 6697
 irc_channel: "#baz"
 irc_nickname: shithead-ng
 irc_nickname2: shithead
+
+#
+# RNG to use
+# This can be "rand" for perl's built in rand() function
+# Or "mt" to use the Math::Random::MT::Perl module (recommended)
+#
+rng: rand

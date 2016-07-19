@@ -12,6 +12,7 @@ use lib $Bin;
 use MarkovBot::Config;
 use MarkovBot::Redis;
 use Encode qw(decode encode);
+use if (config("rng") eq "mt"), "Math::Random::MT::Perl" => qw(rand);
 
 sub markov( $ ) {
   # markov - given two starting words, returns a markov chain result

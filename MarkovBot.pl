@@ -16,6 +16,7 @@ use MarkovBot::Commands;
 use MarkovBot::MarkovChain;
 use MarkovBot::Redis;
 use Encode qw(encode decode);
+use if (config("rng") eq "mt"), "Math::Random::MT::Perl" => qw(rand);
 
 sub said {
   my $self = shift;
