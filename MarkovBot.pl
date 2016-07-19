@@ -51,7 +51,8 @@ sub said {
     $self->say(channel => config("irc_channel"), body => "lad");
   }
   my $chattiness = $redis->get("$redis_prefix:chattiness");
-  if (rand 100 < $chattiness) {
+  my $rand = rand 100;
+  if ($rand < $chattiness) {
     # generate a shitpost
     my @line = split " ", $msg->{body};
     return unless scalar(@line) > 1;
