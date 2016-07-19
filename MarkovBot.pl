@@ -57,12 +57,14 @@ sub said {
     return unless scalar(@line) > 1;
     my $start = int rand $#line;
     my $resp = markov( [$line[$start], $line[$start+1]] );
-    $resp = config("insult") unless $resp;
+    if (rand() * 100 < config("insult_chance") && !$resp) {
+      $resp = config("insult");
+    }
 
     $self->say(
       channel => config("irc_channel"),
       body => $resp,
-    );
+    ) if $resp;
   }
 
   # Learn

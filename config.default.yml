@@ -3,6 +3,8 @@
 #
 command_character: "."
 insult: "you're a faggot"
+insult_chance: 2 # % chance that the bot will use the insult
+                 # can be 0 to disable insults
 
 #
 # Redis Settings
