@@ -20,9 +20,10 @@ First, set up dependencies. You need a redis server and the necessary perl modul
 cpan App::cpanminus
 # clone the git repo if you haven't already, then install the perl modules
 git clone https://neetco.de/albino/shithead-ng
-cpanm --installdeps shithead-ng
+cd shithead-ng
+cpanm --installdeps .
 # or, to avoid setting up local::lib:
-cpanm --sudo --installdeps shithead-ng
+cpanm --sudo --installdeps .
 ```
 
 Next, you need a brainfile. A brainfile is simply an irc log with all joins, parts, timestamps and nicknames stripped. In other words, it contains only what was said.
