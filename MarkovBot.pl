@@ -47,8 +47,27 @@ sub said {
     return;
 
   }
-  if ($msg->{body} eq 'wew') {
-    $self->say(channel => config("irc_channel"), body => "lad");
+  if ($msg->{body} =~ m/^(wew|lad)$/i) {
+    my $ret;
+    my @o = split("", $msg->{"body"});
+    my @r = split("", ($msg->{body} =~ m/wew/i) ? "lad" : "wew");
+    for my $i (0..2) {
+      if ($o[$i] eq uc $o[$i]) {
+        $ret .= uc $r[$i];
+      } else {
+        $ret .= lc $r[$i];
+      }
+    }
+    $self->say(
+      channel => config("irc_channel"),
+      body => $ret,
+    );
+  }
+  if ($msg->{body} =~ m/^ayy+$/) {
+    $self->say(
+      channel => config("irc_channel"),
+      body => "lmao",
+    );
   }
   my $chattiness = $redis->get("$redis_prefix:chattiness");
   my $rand = rand 100;
