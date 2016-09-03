@@ -18,6 +18,11 @@ use MarkovBot::Redis;
 use Encode qw(encode decode);
 use if (config("rng") eq "mt"), "Math::Random::MT::Perl" => qw(rand);
 
+sub wordsin {
+  my $str = shift;
+  return scalar(split(" ", $str));
+}
+
 sub said {
   my $self = shift;
   my $msg = shift;
@@ -47,6 +52,8 @@ sub said {
     return;
 
   }
+
+  # Cheap autocomplete system
   if ($msg->{body} =~ m/^(wew|lad)$/i) {
     my $ret;
     my @o = split("", $msg->{"body"});
@@ -69,14 +76,25 @@ sub said {
       body => "lmao",
     );
   }
+
   my $chattiness = $redis->get("$redis_prefix:chattiness");
   my $rand = rand 100;
   if ($rand < $chattiness) {
     # generate a shitpost
     my @line = split " ", $msg->{body};
-    return unless scalar(@line) > 1;
-    my $start = int rand $#line;
-    my $resp = markov( [$line[$start], $line[$start+1]] );
+    return unless scalar(@line) >= 2;
+
+    # Generate the best shitpost we can
+    my $resp;
+    for (1..20) {
+      my $start = int rand $#line;
+      my $post = markov( [$line[$start], $line[$start+1]] );
+      $post = "" if !$post;
+      $resp = $post if !$resp;
+      last if wordsin($post) >= config("target_words");
+      $resp = $post if wordsin($post) > wordsin($resp);
+    }
+
     if (rand() * 100 < config("insult_chance") && !$resp) {
       $resp = config("insult");
     }

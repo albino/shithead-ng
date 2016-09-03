@@ -1,3 +1,7 @@
+## important
+
+shithead-ng has a new config option: target_words. Please see config.default.yml and update your config.yml accordingly. Without this parameter, shithead-ng will not work!
+
 # shithead-ng
 
 next generation markov chain irc shitposting bot
