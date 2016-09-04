@@ -41,6 +41,7 @@ sub commandUnignore() {
 
 sub commandShitposting() {
   my $command = shift;
+  my $chan = shift;
 
   if (scalar( @{$command} ) != 2 || !looks_like_number $command->[1]
       || $command->[1] > 100 || $command->[1] < 0) {
@@ -49,7 +50,7 @@ sub commandShitposting() {
 
   my $redis = redis();
   my $p = config("redis_prefix");
-  $redis->set("$p:chattiness", $command->[1]);
+  $redis->set("$p:".config("irc_server").":$chan:chattiness", $command->[1]);
 }
 
 sub getCommandSubs() {

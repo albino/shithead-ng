@@ -45,7 +45,7 @@ sub said {
     my %subs = %{getCommandSubs()};
 
     if (defined $subs{$bare}) {
-      my $ret = $subs{$bare}->(\@command);
+      my $ret = $subs{$bare}->(\@command, $msg->{"channel"});
       $self->say( channel => $msg->{"channel"}, body => decode("UTF-8", $ret) ) unless $ret eq "___null___";
     }
 
@@ -77,7 +77,7 @@ sub said {
     );
   }
 
-  my $chattiness = $redis->get("$redis_prefix:chattiness");
+  my $chattiness = $redis->get("$redis_prefix:".config("irc_server").":$msg->{channel}:chattiness");
   my $rand = rand 100;
   if ($rand < $chattiness) {
     # generate a shitpost
@@ -111,10 +111,14 @@ sub said {
 }
 
 # Set base chattiness value on first run
+# Chattiness is stored per channel like this:
+# prefix:irc.foo.bar:#baz:chattiness
 my $redis = redis();
 my $p = config("redis_prefix");
-if (!$redis->get("$p:chattiness")) {
-  $redis->set("$p:chattiness", 10);
+for my $chan ( @{config("irc_channels")} ) {
+  if (!$redis->get("$p:".config("irc_server").":$chan:chattiness")) {
+    $redis->set("$p:".config("irc_server").":$chan:chattiness", 10);
+  }
 }
 
 MarkovBot->new(
