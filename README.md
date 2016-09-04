@@ -1,6 +1,11 @@
 ## important
 
-shithead-ng has a new config option: target_words. Please see config.default.yml and update your config.yml accordingly. Without this parameter, shithead-ng will not work!
+recent config changes:
+
+ - target_words option
+ - irc_channel changed to irc_channels
+
+If you do not update your config.yml file to reflect these changes, shithead-ng will not work!
 
 # shithead-ng
 
