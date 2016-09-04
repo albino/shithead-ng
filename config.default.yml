@@ -21,9 +21,12 @@ redis_password: hunter2
 irc_ssl: true
 irc_server: irc.foo.bar
 irc_port: 6697
-irc_channel: "#baz"
 irc_nickname: shithead-ng
 irc_nickname2: shithead
+irc_channels:
+  - "#foo"
+  - "#bar"
+  - "#baz"
 
 #
 # RNG to use

@@ -46,7 +46,7 @@ sub said {
 
     if (defined $subs{$bare}) {
       my $ret = $subs{$bare}->(\@command);
-      $self->say( channel => config("irc_channel"), body => decode("UTF-8", $ret) ) unless $ret eq "___null___";
+      $self->say( channel => $msg->{"channel"}, body => decode("UTF-8", $ret) ) unless $ret eq "___null___";
     }
 
     return;
@@ -66,13 +66,13 @@ sub said {
       }
     }
     $self->say(
-      channel => config("irc_channel"),
+      channel => $msg->{"channel"},
       body => $ret,
     );
   }
   if ($msg->{body} =~ m/^ayy+$/) {
     $self->say(
-      channel => config("irc_channel"),
+      channel => $msg->{"channel"},
       body => "lmao",
     );
   }
@@ -100,7 +100,7 @@ sub said {
     }
 
     $self->say(
-      channel => config("irc_channel"),
+      channel => $msg->{"channel"},
       body => $resp,
     ) if $resp;
   }
@@ -121,7 +121,7 @@ MarkovBot->new(
 
   server => config("irc_server"),
   port => config("irc_port"),
-  channels => [config("irc_channel")],
+  channels => config("irc_channels"),
 
   nick => config("irc_nickname"),
   alt_nicks => [config("irc_nickname2")],
