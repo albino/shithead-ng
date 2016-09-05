@@ -126,6 +126,7 @@ MarkovBot->new(
   server => config("irc_server"),
   port => config("irc_port"),
   channels => config("irc_channels"),
+  password => config("irc_password") ? config("irc_password") : undef,
 
   nick => config("irc_nickname"),
   alt_nicks => [config("irc_nickname2")],

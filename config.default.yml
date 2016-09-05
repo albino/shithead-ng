@@ -27,6 +27,7 @@ irc_channels:
   - "#foo"
   - "#bar"
   - "#baz"
+# irc_password: hunter2
 
 #
 # RNG to use
