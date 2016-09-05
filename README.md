@@ -73,6 +73,11 @@ Now, just run `perl MarkovBot.pl`.
 < shithead-ng> Pong!
 ```
 
+## Command line options
+```text
+-f: specify a YAML config file for shithead-ng to use. Defaults to /path/to/shithead-ng/config.yml.
+```
+
 ## Exporting the brainfile
 
 ```bash
