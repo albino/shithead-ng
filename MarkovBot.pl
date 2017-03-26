@@ -70,7 +70,7 @@ sub said {
       body => $ret,
     );
   }
-  if ($msg->{body} =~ m/^ayy+$/) {
+  if ($msg->{body} =~ m/^ayy+$/i) {
     $self->say(
       channel => $msg->{"channel"},
       body => "lmao",
