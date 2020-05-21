@@ -1,3 +1,7 @@
+## cool new stuff
+
+shithead-ng has been superseded by [shithead-X](https://github.com/albino/shithead-X), which uses very fancy GPT-2 instead of old and boring Markov chains. but if you submit an issue to shithead-ng I will still answer it.
+
 ## important
 
 recent config changes:
