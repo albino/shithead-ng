@@ -2,10 +2,11 @@
 # General settings
 #
 command_character: "."
-insult: "you're a faggot"
-insult_chance: 2 # % chance that the bot will use the insult
+insult: ""
+insult_chance: 0 # % chance that the bot will use the insult
                  # can be 0 to disable insults
 target_words: 4 # lowest number of words in an 'ideal' response
+respond_on_highlight: true
 
 #
 # Redis Settings

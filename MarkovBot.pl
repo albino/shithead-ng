@@ -79,7 +79,7 @@ sub said {
 
   my $chattiness = $redis->get("$redis_prefix:".config("irc_server").":$msg->{channel}:chattiness");
   my $rand = rand 100;
-  if ($rand < $chattiness) {
+  if ($rand < $chattiness || (config("respond_on_highlight") eq "true" && $msg->{address})) {
     # generate a shitpost
     my @line = split " ", $msg->{body};
     return unless scalar(@line) >= 2;
