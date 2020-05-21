@@ -4,6 +4,7 @@ recent config changes:
 
  - target_words option
  - irc_channel changed to irc_channels
+ - respond_on_highlight option
 
 If you do not update your config.yml file to reflect these changes, shithead-ng will not work!
 
